@@ -50,9 +50,9 @@ option1 = st.sidebar.selectbox(
 left_column.write('retailers by type')
 
 if option1 == 'All':
-	left_column.bar_chart(type_of_consumer, width=200, height=300)
+	left_column.bar_chart(type_of_consumer, width=200, height=500)
 else:
-	left_column.bar_chart(consumers[consumers.state == option1].groupby('type')['id'].size(), width=200, height=300)
+	left_column.bar_chart(consumers[consumers.state == option1].groupby('type')['id'].size(), width=200, height=500)
 
 
 # Consumers Map Plot
