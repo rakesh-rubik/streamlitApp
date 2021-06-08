@@ -34,53 +34,61 @@ order_data = order_data.merge(consumers[['id','type', 'state']], on = 'id', how 
 
 
 
-
-
 #order_data = pd.read_csv('SampleData/inlineItems.csv')
-type_of_consumer = consumers.groupby('type')['id'].size().T
+type_of_consumer = consumers.groupby('type')['id'].size()
 
 left_column, right_column = st.beta_columns(2)
 
 
 
-option1 = st.sidebar.selectbox(
+option_state = st.sidebar.selectbox(
     'Select State',
      ['All']+list(consumers.state.unique()))
 
-left_column.write('retailers by type')
-
-if option1 == 'All':
-	left_column.bar_chart(type_of_consumer, width=200, height=500)
-else:
-	left_column.bar_chart(consumers[consumers.state == option1].groupby('type')['id'].size(), width=200, height=500)
-
-
-# Consumers Map Plot
-right_column.write("retailers distribution across state/country")
-if option1 == 'All':
-	right_column.map(consumers[['lon', 'lat']], use_container_width=False)
-
-else:
-	right_column.map(consumers[consumers.state == option1][['lon', 'lat']], use_container_width=False)
-
-
 # Option 2
-option2 = st.sidebar.selectbox(
+option_type = st.sidebar.selectbox(
     'Select type',
      ['All']+list(consumers.type.unique()))
+############## Bar
+left_column.write('retailers by type')
+
+if option_state == 'All':
+	left_column.bar_chart(type_of_consumer, width=200, height=500)
+else:
+	left_column.bar_chart(consumers[consumers.state == option_state].groupby('type')['id'].size(), width=200, height=500)
 
 
+##############Map
+# Consumers Map Plot
+right_column.write("retailers distribution across state/country based on type")
+if option_state == 'All' and option_type == 'All':
+	right_column.map(consumers[['lon', 'lat']], use_container_width=False)
 
-st.write(option1+" "+option2+' Sales')
+elif option_state == 'All' and option_type != 'All':
+	right_column.map(consumers[consumers.type == option_type][['lon', 'lat']], use_container_width=False)
 
-if option1 == 'All' and option2 == 'All':
-	st.line_chart(order_data.groupby('date')['Quantities'].sum())
-
-elif option1 == 'All' and option2 != 'All':
-	st.line_chart(order_data[order_data.type == option2].groupby('date')['Quantities'].sum())	
-
-elif option1 != 'All' and option2 == 'All':
-	st.line_chart(order_data[order_data.state == option1].groupby('date')['Quantities'].sum())
+elif option_state != 'All' and option_type == 'All':
+	right_column.map(consumers[consumers.state == option_state][['lon', 'lat']], use_container_width=False)
 
 else:
-	st.line_chart(order_data[(order_data.state == option1) & (order_data.type == option2)].groupby('date')['Quantities'].sum())
+	right_column.map(consumers[(consumers.state == option_state) & (consumers.type == option_type)][['lon', 'lat']], use_container_width=False)
+
+
+#############Sales 
+st.write(option_state+" "+option_type+' Sales')
+
+if option_state == 'All' and option_type == 'All':
+	st.line_chart(order_data.groupby('date')['Quantities'].sum())
+
+elif option_state == 'All' and option_type != 'All':
+	st.line_chart(order_data[order_data.type == option_type].groupby('date')['Quantities'].sum())	
+
+elif option_state != 'All' and option_type == 'All':
+	st.line_chart(order_data[order_data.state == option_state].groupby('date')['Quantities'].sum())
+
+else:
+	st.line_chart(order_data[(order_data.state == option_state) & (order_data.type == option_type)].groupby('date')['Quantities'].sum())
+
+
+Print('It was fun!!')
+
