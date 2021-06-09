@@ -14,6 +14,14 @@ st.write("A small app!!")
 
 # Reading datasets
 
+from streamlit import caching
+
+clear_cache = st.button('Clear Cache')
+if clear_cache:
+	caching.clear_cache()
+
+
+
 consumers = pd.read_csv('SampleData/consumers.csv')
 
 @st.cache(allow_output_mutation=True)
@@ -92,19 +100,38 @@ else:
 	st.line_chart(order_data[(order_data.state == option_state) & (order_data.type == option_type)].groupby('date')['Quantities'].sum())
 
 
-fig, ax = plt.subplots()
-st.write(option_state+' Sales')
-if option_state == 'All':
-	ax.plot(order_data[order_data.type == 'Hospital'].groupby('date')['Quantities'].sum())
-	ax.plot(order_data[order_data.type == 'Pharmacy'].groupby('date')['Quantities'].sum())
-if option_state != 'All':
-	ax.plot(order_data[(order_data.type == 'Hospital') & (order_data.state == option_state)].groupby('date')['Quantities'].sum())
-	ax.plot(order_data[(order_data.type == 'Pharmacy') & (order_data.state == option_state)].groupby('date')['Quantities'].sum())
+#fig, ax = plt.subplots()
+#st.write(option_state+' Sales')
+#if option_state == 'All':
+#	ax.plot(order_data[order_data.type == 'Hospital'].groupby('date')['Quantities'].sum())
+#	ax.plot(order_data[order_data.type == 'Pharmacy'].groupby('date')['Quantities'].sum())
+#if option_state != 'All':
+#	ax.plot(order_data[(order_data.type == 'Hospital') & (order_data.state == option_state)].groupby('date')['Quantities'].sum())
+#	ax.plot(order_data[(order_data.type == 'Pharmacy') & (order_data.state == option_state)].groupby('date')['Quantities'].sum())
 
-st.pyplot(fig)
+#st.pyplot(fig)
 
+#st.json({'foo':'bar','fu':'ba'})
 
 
 
 st.write('It was fun!!')
 
+st.write("Contact US")
+
+
+details = {'question':[], 'email':[]}
+with st.form("Details"):
+
+
+	st.write("Please fill details below")
+	ques = st.text_area('Enter your question - ')
+	email = st.text_input('Enter your email - ')
+	submitted = st.form_submit_button("Submit")
+
+	if submitted:
+		details['question'].append(ques)
+		details['email'].append(email)
+		ques = st.empty()
+		email = st.empty()
+st.write(details)
