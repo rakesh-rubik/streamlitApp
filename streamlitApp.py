@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import datetime as dt
 from datetime import date 
+import matplotlib.pyplot as plt
 
 import streamlit as st
 
@@ -48,7 +49,7 @@ option_state = st.sidebar.selectbox(
 # Option 2
 option_type = st.sidebar.selectbox(
     'Select type',
-     ['All']+list(consumers.type.unique()))
+     ['All']+list(consumers.type.unique()), )
 ############## Bar
 left_column.write('retailers by type')
 
@@ -81,7 +82,8 @@ if option_state == 'All' and option_type == 'All':
 	st.line_chart(order_data.groupby('date')['Quantities'].sum())
 
 elif option_state == 'All' and option_type != 'All':
-	st.line_chart(order_data[order_data.type == option_type].groupby('date')['Quantities'].sum())	
+	st.line_chart(order_data[order_data.type == option_type].groupby('date')['Quantities'].sum())
+	
 
 elif option_state != 'All' and option_type == 'All':
 	st.line_chart(order_data[order_data.state == option_state].groupby('date')['Quantities'].sum())
@@ -90,5 +92,19 @@ else:
 	st.line_chart(order_data[(order_data.state == option_state) & (order_data.type == option_type)].groupby('date')['Quantities'].sum())
 
 
-Print('It was fun!!')
+fig, ax = plt.subplots()
+st.write(option_state+' Sales')
+if option_state == 'All':
+	ax.plot(order_data[order_data.type == 'Hospital'].groupby('date')['Quantities'].sum())
+	ax.plot(order_data[order_data.type == 'Pharmacy'].groupby('date')['Quantities'].sum())
+if option_state != 'All':
+	ax.plot(order_data[(order_data.type == 'Hospital') & (order_data.state == option_state)].groupby('date')['Quantities'].sum())
+	ax.plot(order_data[(order_data.type == 'Pharmacy') & (order_data.state == option_state)].groupby('date')['Quantities'].sum())
+
+st.pyplot(fig)
+
+
+
+
+st.write('It was fun!!')
 
