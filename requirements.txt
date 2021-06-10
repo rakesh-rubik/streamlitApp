@@ -1,0 +1,4 @@
+python -m pip install pandas            # latest version
+python -m pip install numpy		    	# latest version
+python -m pip install datetime     		# latest version
+python -m pip install matplotlib     	# latest version
