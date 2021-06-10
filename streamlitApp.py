@@ -115,7 +115,7 @@ else:
 
 
 st.write("Contact US")
-
+st.write("Please do not fill details.")
 
 details = {'question':[], 'email':[]}
 with st.form("Details"):
@@ -131,7 +131,7 @@ with st.form("Details"):
 		details['email'].append(email)
 		ques = st.empty()
 		email = st.empty()
-st.write(details)
+# st.write(details)
 
 
 st.write('It was fun!!')
