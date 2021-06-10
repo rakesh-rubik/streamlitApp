@@ -115,8 +115,6 @@ else:
 
 
 
-st.write('It was fun!!')
-
 st.write("Contact US")
 
 
@@ -135,3 +133,6 @@ with st.form("Details"):
 		ques = st.empty()
 		email = st.empty()
 st.write(details)
+
+
+st.write('It was fun!!')

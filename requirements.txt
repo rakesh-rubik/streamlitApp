@@ -1,5 +1,7 @@
-pip install pip==21.1.2
-pip install pandas            # latest version
-pip install numpy		    	# latest version
-pip install datetime     		# latest version
-pip install matplotlib     	# latest version
+pip install pip==21.1.2								# # specific version
+pip install pandas SomePackage==1.2.4            	# # specific version
+pip install numpy SomePackage==1.20.1 				# # specific version
+pip install datetime SomePackage  					# # latest version
+pip install matplotlib SomePackage==3.3.4			# # specific version
+
+
