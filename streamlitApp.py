@@ -5,9 +5,12 @@ from datetime import date
 
 import streamlit as st
 
-st.title('The Modern Data Company')
+st.title('The Modern Data Company') #(https://themoderndatacompany.com/)
+#st.markdown("[Contact US](https://themoderndatacompany.com/)") 
+st.image('logo.png')
 
-st.write("A small app!!")
+
+st.write("A small app!! Just for Exploration")
 
 
 
@@ -114,7 +117,8 @@ else:
 
 
 
-st.write("Contact US")
+st.markdown("[Contact US](https://themoderndatacompany.com/)") 
+
 st.write("Please do not fill details.")
 
 details = {'question':[], 'email':[]}
@@ -132,6 +136,7 @@ with st.form("Details"):
 		ques = st.empty()
 		email = st.empty()
 # st.write(details)
+
 
 
 st.write('It was fun!!')
