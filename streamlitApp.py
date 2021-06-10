@@ -121,7 +121,7 @@ details = {'question':[], 'email':[]}
 with st.form("Details"):
 
 
-	st.write("Please fill details below")
+	#st.write("Please fill details below")
 	ques = st.text_area('Enter your question - ')
 	email = st.text_input('Enter your email - ')
 	submitted = st.form_submit_button("Submit")
